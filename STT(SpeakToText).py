@@ -7,8 +7,9 @@ class STT:
     def get_audio(self):
         rec = self.rec_static_instance
         with sr.Microphone() as source:
-            audio_data = rec.listen(source)
+            #removed_noise = rec.adjust_for_ambient_noise(source=source)
             try:
+                audio_data = rec.listen(source=source)
                 text = rec.recognize_google(audio_data, language="ko")
             except Exception as e:
                 text = "...listening"
