@@ -1,14 +1,19 @@
 import speech_recognition as sr
 #import pyaudio
 
-rec = sr.Recognizer()
 print("Run")
+num = 0
+
 while True:
+    num +=1
+    rec = sr.Recognizer()
+    rec.energy_threshold = 500
+    text = ""
     with sr.Microphone() as source:
-        audio_data = rec.record(source, duration=5)
         try:
+            audio_data = rec.listen(source, timeout=0.3, phrase_time_limit=5)
             text = rec.recognize_google(audio_data, language = "ko")
         except:
-            print("..")
             text = ""
         print(text)
+    print(num)
